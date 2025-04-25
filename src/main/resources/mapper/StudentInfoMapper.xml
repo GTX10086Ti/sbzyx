@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zsc.j2e.mapper.StudentInfoMapper">
+  <resultMap id="BaseResultMap" type="zsc.j2e.entity.StudentInfo">
+    <id column="userID" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthYear" jdbcType="DATE" property="birthyear" />
+    <result column="grade" jdbcType="DATE" property="grade" />
+    <result column="collegeID" jdbcType="INTEGER" property="collegeid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="hometown" jdbcType="VARCHAR" property="hometown" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userID, userName, sex, birthYear, grade, collegeID, phone, nation, postcode, hometown, 
+    language, address, email
+  </sql>
+  <select id="selectByExample" parameterType="zsc.j2e.entity.StudentInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from studentinfo
+    where userID = #{userid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from studentinfo
+    where userID = #{userid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="zsc.j2e.entity.StudentInfoExample">
+    delete from studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="zsc.j2e.entity.StudentInfo">
+    insert into studentinfo (userID, userName, sex, 
+      birthYear, grade, collegeID, 
+      phone, nation, postcode, 
+      hometown, language, address, 
+      email)
+    values (#{userid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
+      #{birthyear,jdbcType=DATE}, #{grade,jdbcType=DATE}, #{collegeid,jdbcType=INTEGER}, 
+      #{phone,jdbcType=VARCHAR}, #{nation,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}, 
+      #{hometown,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="zsc.j2e.entity.StudentInfo">
+    insert into studentinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userID,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthyear != null">
+        birthYear,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+      <if test="collegeid != null">
+        collegeID,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="nation != null">
+        nation,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="hometown != null">
+        hometown,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthyear != null">
+        #{birthyear,jdbcType=DATE},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=DATE},
+      </if>
+      <if test="collegeid != null">
+        #{collegeid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="zsc.j2e.entity.StudentInfoExample" resultType="java.lang.Long">
+    select count(*) from studentinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update studentinfo
+    <set>
+      <if test="row.userid != null">
+        userID = #{row.userid,jdbcType=INTEGER},
+      </if>
+      <if test="row.username != null">
+        userName = #{row.username,jdbcType=VARCHAR},
+      </if>
+      <if test="row.sex != null">
+        sex = #{row.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="row.birthyear != null">
+        birthYear = #{row.birthyear,jdbcType=DATE},
+      </if>
+      <if test="row.grade != null">
+        grade = #{row.grade,jdbcType=DATE},
+      </if>
+      <if test="row.collegeid != null">
+        collegeID = #{row.collegeid,jdbcType=INTEGER},
+      </if>
+      <if test="row.phone != null">
+        phone = #{row.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="row.nation != null">
+        nation = #{row.nation,jdbcType=VARCHAR},
+      </if>
+      <if test="row.postcode != null">
+        postcode = #{row.postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="row.hometown != null">
+        hometown = #{row.hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="row.language != null">
+        language = #{row.language,jdbcType=VARCHAR},
+      </if>
+      <if test="row.address != null">
+        address = #{row.address,jdbcType=VARCHAR},
+      </if>
+      <if test="row.email != null">
+        email = #{row.email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update studentinfo
+    set userID = #{row.userid,jdbcType=INTEGER},
+      userName = #{row.username,jdbcType=VARCHAR},
+      sex = #{row.sex,jdbcType=VARCHAR},
+      birthYear = #{row.birthyear,jdbcType=DATE},
+      grade = #{row.grade,jdbcType=DATE},
+      collegeID = #{row.collegeid,jdbcType=INTEGER},
+      phone = #{row.phone,jdbcType=VARCHAR},
+      nation = #{row.nation,jdbcType=VARCHAR},
+      postcode = #{row.postcode,jdbcType=VARCHAR},
+      hometown = #{row.hometown,jdbcType=VARCHAR},
+      language = #{row.language,jdbcType=VARCHAR},
+      address = #{row.address,jdbcType=VARCHAR},
+      email = #{row.email,jdbcType=VARCHAR}
+    <if test="example != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="zsc.j2e.entity.StudentInfo">
+    update studentinfo
+    <set>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthyear != null">
+        birthYear = #{birthyear,jdbcType=DATE},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=DATE},
+      </if>
+      <if test="collegeid != null">
+        collegeID = #{collegeid,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="hometown != null">
+        hometown = #{hometown,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userID = #{userid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="zsc.j2e.entity.StudentInfo">
+    update studentinfo
+    set userName = #{username,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthYear = #{birthyear,jdbcType=DATE},
+      grade = #{grade,jdbcType=DATE},
+      collegeID = #{collegeid,jdbcType=INTEGER},
+      phone = #{phone,jdbcType=VARCHAR},
+      nation = #{nation,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      hometown = #{hometown,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
+    where userID = #{userid,jdbcType=INTEGER}
+  </update>
+</mapper>
